@@ -1,0 +1,10 @@
+<h2>Areas</h2>
+<a href="{% url 'areacreate' %}"><button class="btn">Add Area</button></a>
+
+{% for area in area_list %}
+    {{ area.area_name }}
+    {{ area.area_type }}
+    <a href="{% url 'areaupdate' area.id %}"><button>Edit</button></a>
+    <a href="{% url 'areadelete' area.id %}"><button>Delete</button></a>
+    <br>
+{% endfor %}

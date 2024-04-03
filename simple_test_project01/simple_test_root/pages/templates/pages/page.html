@@ -12,5 +12,6 @@
 	<p>We're now using the page template.</p>
 	{% autoescape off %}
 	<p>{{ content }}</p>
+    <img src="{{ pic.url }}"/>
 	{% endautoescape %}
 {% endblock main_content %}

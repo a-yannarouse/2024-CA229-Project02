@@ -1,0 +1,7 @@
+<h2>Delete Area</h2>
+<form method="post">
+<div>
+  {% csrf_token %}
+  <p>Are you sure you want to delete "{{ area.area_name }}"?</p>
+  <input type="submit" value="Confirm" />
+</div>

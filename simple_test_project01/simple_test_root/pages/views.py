@@ -2,25 +2,26 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail, get_connection
+from django.http import Http404
 from . models import Page
 from datetime import date # Add this line near top of file
 from .contact import ContactForm
 
-
-def index(request, pagename=''):
-    pagename = '/' + pagename
-    pg = Page.objects.get(permalink=pagename)
-    t = date.today()
-    month = t.strftime('%b')
-    year = t.year
-    context = {
-    	'title': pg.title,
-    	'content': pg.bodytext,
-        'last_updated': pg.update_date,
-		'page_list': Page.objects.all(),
-	    'welcome': f'Welcome to {month} {year}',
-    }
-    return render(request, 'pages/page.html', context)
+def index(request, pagename = ''):
+    print('Pagename: ' + pagename)
+    try:                            # Indent the next set of lines
+        pagename = '/' + pagename
+        pg = Page.objects.get(permalink=pagename)
+        context = {
+            'title': pg.title,
+            'content': pg.bodytext,
+            'last_updated': pg.update_date,
+            'page_list': Page.objects.all(),
+            'pic': pg.pic,
+        }
+        return render(request, 'pages/page.html', context)
+    except:
+        raise Http404("No model matches the given query.")
 
 def contact(request):
 	submitted = False
