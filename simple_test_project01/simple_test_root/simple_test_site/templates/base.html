@@ -3,8 +3,11 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Basic Site Template</title>
-		<link href="{% static 'main.css' %}" rel="stylesheet" type="text/css">
+		<title>
+			{% block title %}
+				Untitled Document
+			{% endblock title %}
+		</title>
 	</head>
 	<body>
 	<div id="wrapper">
@@ -14,14 +17,22 @@
 		</header>
 		<aside id="leftsidebar">
 			<nav id="nav">
-			<ul><li>Menu 1</li><li>Menu 2</li><li>Menu 3</li></ul>
+				<ul>
+					{% block sidenav %}
+						<li>Menu 1</li>
+						<li>Menu 2</li>
+						<li>Menu 3</li>
+					{% endblock sidenav %}
+				</ul>
 			</nav>
 		</aside>
 		<section id="main">
-			<h1>{{ title }}</h1>
-			{% autoescape off %}
-			<p>{{ content}}</p>
-			{% endautoescape %}
+			{% block main_content %}
+				<h1>{{ title }}</h1>
+				{% autoescape off %}
+				<p>{{ content}}</p>
+				{% endautoescape %}
+			{% endblock main_content %}
 		</section>
 		<footer id="footer">Copyright &copy; 2020 John McKenna</footer>
 	</div>
