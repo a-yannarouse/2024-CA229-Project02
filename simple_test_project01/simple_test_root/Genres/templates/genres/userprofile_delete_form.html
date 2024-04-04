@@ -1,0 +1,7 @@
+<h2>Delete User Profile</h2>
+<form method="post">
+<div>
+  {% csrf_token %}
+  <p>Are you sure you want to delete "{{ user.user_name }}"?</p>
+  <input type="submit" value="Confirm" />
+</div>
