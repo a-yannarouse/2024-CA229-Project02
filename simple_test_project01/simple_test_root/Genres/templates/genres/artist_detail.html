@@ -1,2 +1,11 @@
-<h3>{{ artist.artist_name }}</h3>
-<p>{{ artists.artist_name }} is a {{ artist.artist_type | lower }}</p>
+<!-- artist_detail.html -->
+{% extends "base.html" %}
+
+{% block title %}
+    {{ artist.name }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ artist.name }}</h1>
+    <p>Genre: {{ artist.genre }}</p>
+{% endblock %}

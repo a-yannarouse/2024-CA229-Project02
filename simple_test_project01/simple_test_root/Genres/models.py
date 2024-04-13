@@ -9,17 +9,15 @@ class Genre(models.Model):
         return self.name
 
 class Artist(models.Model):
-    artist_name = models.CharField(max_length=200)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
-    bio = models.TextField()
-    image = models.ImageField(upload_to='artists/', null=True, blank=True)
+    name = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.artist_name
-    
+        return self.name
+
     def get_absolute_url(self):
         return reverse('ArtistDetail', kwargs={'pk':self.pk})
-
+    
 class UserProfile(models.Model):
     user_name = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)

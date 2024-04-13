@@ -44,9 +44,18 @@ body {
 	text-decoration: none;
 }
 #leftsidebar {
-	width: 180px;
-	height: 350px;
-	float: left;
+    width: 180px;
+	flex: 0 0 200px; /* Sidebar width */
+    height: auto; /* Change height to auto */
+    float: left;
+    margin-right: 20px; /* Add margin-right for space */
+}
+
+#content {
+    width: calc(100% - 200px); /* Calculate width to account for sidebar */
+    float: left;
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in width calculation */
 }
 #main {
 	width: 560px;

@@ -1,7 +1,13 @@
 from django.contrib import admin
-from .models import Artist, Genre, UserProfile
+from .models import Artist, Genre
 
-admin.site.register(Artist)
-admin.site.register(Genre)
-admin.site.register(UserProfile)
+class ArtistAdmin(admin.TabularInline):
+    model = Artist
+    extra = 1
+
+class GenreAdmin(admin.ModelAdmin):
+    inlines = [ArtistAdmin]
+    
+admin.site.register(Genre, GenreAdmin)
+
 

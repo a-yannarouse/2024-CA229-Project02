@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Pop
+{% endblock %}
+
+{% block content %}
+    <h1>Pop Genre</h1>
+    <p>This is the page for Pop music.</p>
+
+    <h2>Pop Artists:</h2>
+    <ul>
+        {% for artist in artists %}
+            <li><a href="{% url 'ArtistDetail' pk=artist.pk %}">{{ artist.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
