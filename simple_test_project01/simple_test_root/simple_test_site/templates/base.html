@@ -1,39 +1,74 @@
 {% load static %}
 <!doctype html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>
-			{% block title %}
-				Music Home Page
-			{% endblock title %}
-		</title>
-		<link href="{% static 'main.css' %}" rel="stylesheet" type="text/css">
-	</head>
-	<body>
-	<div id="wrapper">
-		<header id="header">
-			<div id="logo"><img src="{% static 'Logo_aeolus.png' %}" width="150" height="114"alt=""/></div>
-			<div id="topbanner"><img src="{% static 'banner.jpg' %}" width="800" height="500" alt=""/></div>
-		</header>
-		<aside id="leftsidebar">
-			<nav id="nav">
-				<ul>
-					<li><a href="{% url 'pop' %}">Pop</a></li>
-                    <li><a href="{% url 'rap' %}">Rap</a></li>
-                    <li><a href="{% url 'country' %}">Country</a></li>
-				</ul>
-			</nav>
-		</aside>
-		<section id="main">
-			{% block content %}
-				<h1>{{ title }}</h1>
-				{% autoescape off %}
-				<p>{{ content}}</p>
-				{% endautoescape %}
-			{% endblock %}
-		</section>
-		<footer id="footer">Copyright &copy; 2024 Music Channels</footer>
-	</div>
-	</body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Music Home Page{% endblock title %}</title>
+    <link href="{% static 'main.css' %}" rel="stylesheet" type="text/css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #header {
+            position: relative;
+        }
+        #auth-nav {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+        #auth-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px;
+            background: #5cb85c; /* Bootstrap's btn-success background */
+            border-radius: 4px;
+            margin-left: 5px;
+        }
+        #auth-nav a:hover {
+            background: #4cae4c; /* Darken the button on hover */
+        }
+        /* Other styles ... */
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <header id="header">
+        <div id="logo"><img src="{% static 'Logo_aeolus.png' %}" width="150" height="114" alt=""/></div>
+        <div id="topbanner"><img src="{% static 'banner.jpg' %}" width="800" height="500" alt=""/></div>
+
+        <!-- User Authentication Section -->
+        <div id="auth-nav">
+            {% if user.is_authenticated %}
+                Hello, {{ user.username }} |
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a> |
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </div>
+
+    </header>
+    <aside id="leftsidebar">
+        <nav id="nav">
+            <ul>
+                <li><a href="{% url 'pop' %}">Pop</a></li>
+                <li><a href="{% url 'rap' %}">Rap</a></li>
+                <li><a href="{% url 'country' %}">Country</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <section id="main">
+        {% block content %}
+            <h1>{{ title }}</h1>
+            {% autoescape off %}
+            <p>{{ content }}</p>
+            {% endautoescape %}
+        {% endblock %}
+    </section>
+    <footer id="footer">Copyright &copy; 2024 Music Channels</footer>
+</div>
+</body>
 </html>

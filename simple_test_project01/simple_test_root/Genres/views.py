@@ -6,6 +6,47 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail, get_connection
 from .contact import ContactForm
+from django.shortcuts import render, redirect 
+from django.http import HttpResponse
+from django.forms import inlineformset_factory
+from django.contrib.auth.forms import UserCreationForm
+from .models import *
+from .forms import OrderForm, CreateUserForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+
+#from .filters import OrderFilter
+
+def registerPage(request):
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request, 'Account was create for ' + user)
+            return redirect('login')
+    context = {'form':form}
+    return render(request, 'genres/register.html', context)
+
+def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('Genres')
+        else:
+            messages.info(request, 'Username OR Password is incorrect')
+            
+    context = {}
+    return render(request, 'genres/login.html', context)
+
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
+
 
 class Genres(ListView):
     template_name = 'Genres/home.html'
@@ -17,6 +58,7 @@ class Genres(ListView):
         context['attractions'] = Artist.objects.all()
         return context
     
+
 def contact(request):
 	submitted = False
 	if request.method == 'POST':
@@ -43,6 +85,7 @@ def contact(request):
 	}
 	return render(request, 'User/contact.html', context)
 
+
 class Rap(ListView):
     template_name = 'genres/rap.html'
     queryset = Genre.objects.all()
@@ -55,6 +98,7 @@ class Rap(ListView):
         context['artists'] = Artist.objects.filter(genre=genre)
         return context
 
+
 class Pop(ListView):
     template_name = 'genres/pop.html'
     queryset = Genre.objects.all()
@@ -66,6 +110,7 @@ class Pop(ListView):
         context['genre'] = genre
         context['artists'] = Artist.objects.filter(genre=genre)
         return context
+
 
 class Country(ListView):
     template_name = 'genres/country.html'

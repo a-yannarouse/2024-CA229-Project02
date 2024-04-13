@@ -29,3 +29,13 @@ class UserProfile(models.Model):
     def get_absolute_url(self):
         return reverse('UserProfileDetail', kwargs={'pk':self.pk})
 
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
+    artist = models.ForeignKey(Artist, on_delete=models.SET_NULL, null=True, related_name='orders')
+
+    def __str__(self):
+        return f'Order {self.pk} by {self.user.username}'
+
+    def get_absolute_url(self):
+        return reverse('order_detail', kwargs={'pk': self.pk})

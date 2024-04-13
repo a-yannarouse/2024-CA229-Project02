@@ -3,6 +3,9 @@ from . import views
 from .views import ArtistDetailView
 
 urlpatterns = [
+    path('register/', views.registerPage, name='register'),
+    path('login/', views.loginPage, name='login'),
+    path('logout/', views.logoutUser, name='logout'),
     path('', views.Genres.as_view(), name='Genres'),
     path('contact/', views.contact, name='contact'),
     path('rap/', views.Rap.as_view(), name='rap'),
