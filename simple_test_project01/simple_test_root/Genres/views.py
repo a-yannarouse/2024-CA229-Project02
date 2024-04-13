@@ -58,7 +58,6 @@ class Genres(ListView):
         context['attractions'] = Artist.objects.all()
         return context
     
-
 def contact(request):
 	submitted = False
 	if request.method == 'POST':

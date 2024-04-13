@@ -17,7 +17,7 @@ class Artist(models.Model):
 
     def get_absolute_url(self):
         return reverse('ArtistDetail', kwargs={'pk':self.pk})
-    
+
 class UserProfile(models.Model):
     user_name = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
