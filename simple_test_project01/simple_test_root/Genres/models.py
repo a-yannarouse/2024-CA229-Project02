@@ -17,7 +17,19 @@ class Artist(models.Model):
 
     def get_absolute_url(self):
         return reverse('ArtistDetail', kwargs={'pk':self.pk})
+<<<<<<< Updated upstream
 
+=======
+    
+class YouTubeChannel(models.Model):
+    name = models.CharField(max_length=100)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    youtube_url = models.URLField()
+
+    def __str__(self):
+        return self.name
+    
+>>>>>>> Stashed changes
 class UserProfile(models.Model):
     user_name = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
@@ -28,7 +40,6 @@ class UserProfile(models.Model):
     
     def get_absolute_url(self):
         return reverse('UserProfileDetail', kwargs={'pk':self.pk})
-
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
