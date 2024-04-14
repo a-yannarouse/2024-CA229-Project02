@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Artist, Genre, YouTubeChannel
+from .models import Artist, Genre
 
 class ArtistAdmin(admin.TabularInline):
     model = Artist
@@ -9,5 +9,4 @@ class GenreAdmin(admin.ModelAdmin):
     inlines = [ArtistAdmin]
     
 admin.site.register(Genre, GenreAdmin)
-admin.site.register(YouTubeChannel)
 

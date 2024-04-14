@@ -122,20 +122,8 @@ class Country(ListView):
     
 class ArtistDetailView(DetailView):
     model = Artist
-    template_name = 'artist_detail.html'
+    template_name = 'genres/artist_detail.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        artist = self.get_object()
-        youtube_channels = artist.youtubechannel_set.all()  # Access related YouTubeChannel instances
-        if youtube_channels:
-            # Assuming you want to display information for each YouTubeChannel
-            for youtube_channel in youtube_channels:
-                video_url = youtube_channel.youtube_url
-                video_id = video_url.split('=')[-1]  # Extract video ID from URL
-                context['youtube_video_id'] = video_id
-                context['youtube_video_name'] = youtube_channel.name
-        return context
 
 
 

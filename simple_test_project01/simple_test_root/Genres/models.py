@@ -11,25 +11,15 @@ class Genre(models.Model):
 class Artist(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
+    youtube_video_id = models.CharField(max_length=100, null=True) 
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse('ArtistDetail', kwargs={'pk':self.pk})
-<<<<<<< Updated upstream
 
-=======
     
-class YouTubeChannel(models.Model):
-    name = models.CharField(max_length=100)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
-    youtube_url = models.URLField()
-
-    def __str__(self):
-        return self.name
-    
->>>>>>> Stashed changes
 class UserProfile(models.Model):
     user_name = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
