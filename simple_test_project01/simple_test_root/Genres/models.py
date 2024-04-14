@@ -19,6 +19,23 @@ class Artist(models.Model):
     def get_absolute_url(self):
         return reverse('ArtistDetail', kwargs={'pk':self.pk})
 
+
+class YouTubeLink(models.Model):
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    link = models.URLField()
+
+    def __str__(self):
+        return self.title
+    
+    def video_id(self):
+        # Extract video ID from YouTube URL
+        url_parts = self.link.split("?v=")
+        if len(url_parts) > 1:
+            return url_parts[1]
+        else:
+            # If the URL format is different, you may need to handle it differently
+            return None
     
 class UserProfile(models.Model):
     user_name = models.OneToOneField(User, on_delete=models.CASCADE)

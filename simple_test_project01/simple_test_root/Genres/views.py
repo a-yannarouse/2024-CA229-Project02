@@ -124,9 +124,6 @@ class ArtistDetailView(DetailView):
     model = Artist
     template_name = 'genres/artist_detail.html'
 
-
-
-
 class UserProfileUpdate(UpdateView):
     model = UserProfile
     template_name = "genres/userprofile_update_form.html"

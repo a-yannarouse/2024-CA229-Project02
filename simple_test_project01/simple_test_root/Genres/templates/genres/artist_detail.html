@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block title %}
     {{ artist.name }}
 {% endblock %}
@@ -6,11 +7,8 @@
     <h1>{{ artist.name }}</h1>
     <p>Genre: {{ artist.genre }}</p>
     
-    {% if youtube_video_id %}
-    <h2>{{ youtube_video_name }}</h2>
+    {% for youtube_link in artist.youtubelink_set.all %}
+        <h2>{{ youtube_link.title }}</h2>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ youtube_video_id }}" frameborder="0" allowfullscreen></iframe>
-    {% endif %}
+    {% endfor %}
 {% endblock %}
-
-
-
